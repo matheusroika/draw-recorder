@@ -1,2 +1,15 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
+import { contextBridge, ipcRenderer } from 'electron'
+import { ContextBridgeApi, UserSettings } from './types'
+
+const contextBridgeApi: ContextBridgeApi = {
+	isOSX: () => process.platform === 'darwin',
+	isWindows: () => process.platform === 'win32',
+	isLinux: () => /linux/.test(process.platform),
+	openScreenSecurity: () => ipcRenderer.invoke('openScreenSecurity'),
+	getScreenAccess: () => ipcRenderer.invoke('getScreenAccess'),
+	getScreenSources: () => ipcRenderer.invoke('getScreenSources'),
+	getUserSettings: () => ipcRenderer.invoke('getUserSettings'),
+	saveUserSettings: (settings: UserSettings) => ipcRenderer.invoke('saveUserSettings', settings)
+}
+
+contextBridge.exposeInMainWorld('api', contextBridgeApi)
