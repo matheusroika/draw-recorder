@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles.css'
+import { ScreenPickerModal } from './components/ScreenPickerModal'
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         </div>
       </div>
     </main>
+
+    <ScreenPickerModal />
     </>
   )
 }
