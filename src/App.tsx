@@ -42,21 +42,20 @@ function App() {
 
   return (
     <>
-    <main>
-      <div>
-        <ModeToggle />
-        <div className='w-[60%] h-[300px] flex items-center bg-secondary ml-8'>
+    <main className='p-10 h-screen'>
+      <ModeToggle className='absolute top-4 right-4' />
+      <div className='w-full h-full flex gap-10 items-center'>
+        <div className='w-[60%] h-full flex items-center bg-secondary'>
           <video src="#" autoPlay ref={sourceRef} className='ring-2 ring-red-500 h-fit' />
         </div>
           
         <div className="buttons">
-          <button id="startButton">Start</button>
-          <button id="stopButton" className="hidden">Stop</button>
+          <ScreenPickerModal />
         </div>
       </div>
     </main>
 
-    <ScreenPickerModal className='baba' />
+    
     </>
   )
 }
