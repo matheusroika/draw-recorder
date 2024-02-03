@@ -1,8 +1,10 @@
 import { DesktopCapturerSource } from 'electron'
 
+export type Theme = "dark" | "light" | "system"
+
 export type UserSettings = {
   lastSelectedSourceId: string
-	isDarkModeOn: boolean
+	theme: Theme
 }
 
 export type ContextBridgeApi = {
@@ -11,7 +13,7 @@ export type ContextBridgeApi = {
 	isLinux: () => boolean
 	openScreenSecurity: () => Promise<void>
 	getScreenAccess: () => Promise<boolean>
-	getScreenSources: () => Promise<DesktopCapturerSource[]>
+	getScreenSources: () => Promise<Source[]>
 	getUserSettings: () => Promise<UserSettings>
 	saveUserSettings: (userSettings: UserSettings) => Promise<void>
 }

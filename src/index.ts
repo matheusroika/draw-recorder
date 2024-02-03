@@ -1,5 +1,5 @@
 import { app, BrowserWindow, desktopCapturer, ipcMain, systemPreferences } from 'electron'
-import electronUtil from 'electron-util'
+import { openSystemPreferences } from 'electron-util'
 import fs from 'fs/promises'
 import { UserSettings } from './types'
 
@@ -67,7 +67,7 @@ appStart()
 
 const isOSX = () => process.platform === 'darwin'
 
-ipcMain.handle('openScreenSecurity', () => electronUtil.openSystemPreferences('security', 'Privacy_ScreenCapture'))
+ipcMain.handle('openScreenSecurity', () => openSystemPreferences('security', 'Privacy_ScreenCapture'))
 ipcMain.handle('getScreenAccess', () => !isOSX || systemPreferences.getMediaAccessStatus('screen') === 'granted')
 ipcMain.handle('getScreenSources', async () => {
   const sources = await desktopCapturer.getSources({ types: ['window', 'screen'] })

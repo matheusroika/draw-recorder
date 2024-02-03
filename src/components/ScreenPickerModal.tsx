@@ -1,24 +1,49 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/shadcn/ui/dialog"
+import { useState } from 'react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/shadcn/ui/dialog"
+import { Button } from "@/components/shadcn/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn/ui/tabs"
+import { Source } from '@/types'
+import { ScreenButtonList } from './ScreenButtonList'
 
-export function ScreenPickerModal() {
+const api = window.api
+
+interface Props {
+  className?: string
+}
+
+export function ScreenPickerModal({ className }: Props) {
+  const [apps, setApps] = useState([] as Source[])
+  const [screens, setScreens] = useState([] as Source[])
+
+  async function getSources() {
+    const sources = await api.getScreenSources()
+    setApps(sources.filter(source => source.id.includes('window')))
+    setScreens(sources.filter(source => source.id.includes('screen')))
+  }
+
   return (
     <Dialog>
-      <DialogTrigger>Open</DialogTrigger>
+      <DialogTrigger asChild className={className}>
+        <Button onClick={getSources}>Select screen</Button>
+      </DialogTrigger>
+
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle>Select source to record</DialogTitle>
         </DialogHeader>
+
+        <Tabs defaultValue="screens">
+          <TabsList className='w-full'>
+            <TabsTrigger value="screens" className='w-full'>Screens</TabsTrigger>
+            <TabsTrigger value="apps" className='w-full'>Apps</TabsTrigger>
+          </TabsList>
+          <TabsContent value="screens">
+            <ScreenButtonList screens={screens} />
+          </TabsContent>
+          <TabsContent value="apps">
+            <ScreenButtonList screens={apps} />
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   )
