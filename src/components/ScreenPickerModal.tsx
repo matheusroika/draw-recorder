@@ -24,7 +24,7 @@ export function ScreenPickerModal({ className }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild className={className}>
-        <Button onClick={getSources}>Select screen</Button>
+        <Button variant='outline' onClick={getSources}>Select screen</Button>
       </DialogTrigger>
 
       <DialogContent>

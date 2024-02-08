@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu"
-import { useTheme } from "@/contexts/themeProvider"
+import { useTheme } from "@/contexts/ThemeProvider"
 
 interface Props {
   className?: string

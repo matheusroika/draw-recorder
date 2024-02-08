@@ -19,5 +19,5 @@ export const rendererConfig: Configuration = {
     alias: {
       '@': path.join(__dirname, 'src')
     }
-  },
+  }
 };

@@ -1,30 +1,20 @@
 import { createRoot } from 'react-dom/client'
-import { useEffect, useRef, useState } from 'react'
-import './styles.css'
+import { useEffect, useRef } from 'react'
 import { ScreenPickerModal } from './components/ScreenPickerModal'
-import { UserSettings } from './types'
-import { ThemeProvider } from './contexts/themeProvider'
+import { ThemeProvider } from './contexts/ThemeProvider'
 import { ModeToggle } from './components/ModeToggle'
-
-const api = window.api
+import { RecordingButtons } from './components/RecordingButtons'
+import { AppProvider, useApp } from './contexts/AppProvider'
+import './styles.css'
 
 function App() {
-  const [userSettings, setUserSettings] = useState({} as UserSettings)
+  const { userSettings } = useApp()
   const sourceRef = useRef<HTMLVideoElement>()
-
-  async function getUserSettings() {
-    const userSettings = await api.getUserSettings()
-    setUserSettings(userSettings)
-  }
-
-  useEffect(() => {
-    getUserSettings()
-  }, [])
-
+  
   async function getSourceStream() {
     const sourceId = userSettings.lastSelectedSourceId || 'screen:0:0'
     //eslint-disable-next-line
-    const stream = await (window.navigator.mediaDevices as any).getUserMedia({
+    const stream: MediaStream = await (window.navigator.mediaDevices as any).getUserMedia({
       audio: false,
       video: {
         mandatory: {
@@ -33,6 +23,7 @@ function App() {
         }
       }
     })
+    //stream.getVideoTracks()[0].getSettings().
     sourceRef.current.srcObject = stream
   }
 
@@ -49,8 +40,9 @@ function App() {
           <video src="#" autoPlay ref={sourceRef} className='ring-2 ring-red-500 h-fit' />
         </div>
           
-        <div className="buttons">
+        <div className="buttons flex flex-col gap-4">
           <ScreenPickerModal />
+          <RecordingButtons />
         </div>
       </div>
     </main>
@@ -62,7 +54,9 @@ function App() {
 
 const root = createRoot(document.body)
 root.render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>
+  <AppProvider>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </AppProvider>
 )

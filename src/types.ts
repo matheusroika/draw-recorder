@@ -16,6 +16,12 @@ export type ContextBridgeApi = {
 	getScreenSources: () => Promise<Source[]>
 	getUserSettings: () => Promise<UserSettings>
 	saveUserSettings: (userSettings: UserSettings) => Promise<void>
+	getVideoPath: () => Promise<string>
+	saveVideo: (path: string, content: Buffer) => Promise<void>
+	startIohook: () => Promise<void>
+	stopIohook: () => Promise<void>
+	resumeRecording: (callback: () => void) => void
+	pauseRecording: (callback: () => void) => void
 }
 
 export interface Source extends DesktopCapturerSource {

@@ -20,5 +20,5 @@ export const mainConfig: Configuration = {
     alias: {
       '@': path.join(__dirname, 'src')
     }
-  },
+  }
 };
