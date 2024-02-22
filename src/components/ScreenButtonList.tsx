@@ -1,6 +1,7 @@
-import { useApp } from '@/contexts/AppProvider'
 import { DialogClose } from '@/components/shadcn/ui/dialog'
+import { useApp } from '@/contexts/AppProvider'
 import { Source } from '@/types'
+import { useEffect, useState } from 'react'
 
 interface Props {
   screens: Source[]
@@ -8,6 +9,7 @@ interface Props {
 
 export function ScreenButtonList({ screens }: Props) {
   const { setMediaRecorder, userSettings, setUserSettings } = useApp()
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight)
 
   async function selectScreen(screen: Source) {
     //eslint-disable-next-line
@@ -33,8 +35,17 @@ export function ScreenButtonList({ screens }: Props) {
     }))
   }
 
+  useEffect(() => {
+    function handleResize() {
+      setWindowHeight(window.innerHeight)
+    }
+    window.addEventListener('resize', handleResize)
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
-  <ul className='grid grid-cols-2 gap-4 justify-center mt-4'>
+  <ul className='grid grid-cols-2 gap-4 justify-center mt-4 overflow-y-auto [&>*:nth-child(odd)]:ml-6 [&>*:nth-child(even)]:mr-6' style={{ maxHeight: windowHeight - 200 }}>
     {screens.map(screen => (
       <li key={screen.id}>
         <DialogClose asChild>
