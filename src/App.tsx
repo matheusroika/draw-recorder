@@ -8,7 +8,7 @@ import { AppProvider, useApp } from './contexts/AppProvider'
 import './styles.css'
 
 function App() {
-  const { userSettings } = useApp()
+  const { userSettings, setMediaRecorder } = useApp()
   const sourceRef = useRef<HTMLVideoElement>()
   
   async function getSourceStream() {
@@ -24,6 +24,10 @@ function App() {
       }
     })
     //stream.getVideoTracks()[0].getSettings().
+    setMediaRecorder(new MediaRecorder(stream, {
+      mimeType: 'video/webm; codecs=vp9',
+      videoBitsPerSecond: 6000000
+    }))
     sourceRef.current.srcObject = stream
   }
 
