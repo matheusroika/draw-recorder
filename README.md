@@ -1,0 +1,2 @@
+# Draw Recorder
+Draw Recorder is a screen recording application designed specifically for capturing digital drawings. Unlike traditional screen recorders, Draw Recorder only captures the screen when the user holds down the left mouse button.
