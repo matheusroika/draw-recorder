@@ -33,10 +33,12 @@ export function ScreenPickerModal({ className }: Props) {
         </DialogHeader>
 
         <Tabs defaultValue="screens">
-          <TabsList className='w-full'>
-            <TabsTrigger value="screens" className='w-full'>Screens</TabsTrigger>
-            <TabsTrigger value="apps" className='w-full'>Apps</TabsTrigger>
-          </TabsList>
+          <div className='px-6'>
+            <TabsList className='w-full'>
+              <TabsTrigger value="screens" className='w-full'>Screens</TabsTrigger>
+              <TabsTrigger value="apps" className='w-full'>Apps</TabsTrigger>
+            </TabsList>
+          </div>
           <TabsContent value="screens">
             <ScreenButtonList screens={screens} />
           </TabsContent>
