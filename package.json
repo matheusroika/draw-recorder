@@ -1,7 +1,7 @@
 {
   "name": "draw-recorder",
-  "productName": "draw-recorder",
-  "version": "1.0.0",
+  "productName": "Draw Recorder",
+  "version": "0.1.0",
   "description": "An app that records your screen when you click.",
   "main": ".webpack/main",
   "scripts": {
@@ -14,9 +14,8 @@
   "keywords": [],
   "author": {
     "name": "Matheus Roika",
-    "email": "matheusroika@hotmail.com"
+    "email": "matheus@roika.com.br"
   },
-  "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^7.2.0",
     "@electron-forge/maker-deb": "^7.2.0",
@@ -26,6 +25,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
     "@electron-forge/plugin-webpack": "^7.2.0",
     "@electron-forge/shared-types": "^7.2.0",
+    "@timfish/forge-externals-plugin": "^0.2.1",
     "@types/node": "^20.11.16",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
@@ -67,5 +67,19 @@
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
+  },
+  "iohook": {
+    "targets": [
+      "node-108",
+      "electron-116"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64"
+    ]
   }
 }
