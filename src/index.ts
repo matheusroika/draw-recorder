@@ -30,7 +30,13 @@ const createWindow = (): void => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools({ mode: 'detach', activate: false })
+  if (!app.isPackaged) {
+    mainWindow.webContents.openDevTools({ mode: 'detach', activate: false })
+  }
+
+  if (app.isPackaged && !isOSX()) {
+    mainWindow.removeMenu()
+  }
 }
 
 // This method will be called when Electron has finished
